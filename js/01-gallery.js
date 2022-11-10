@@ -26,15 +26,15 @@ function onImageClick(event) {
   if (!isImageSwatchEl) {
     return;
   }
-  // const imgBigEl = event.target.dataset.source;
 
   const modal = basicLightbox.create(`
-    <div class="modal">
-        <p>
           <img class="modal-image" src="${event.target.dataset.source}" width="800" height="600">
-        </p>
-    </div>
 `);
-
   modal.show();
+
+  window.addEventListener("keydown", (event) => {
+    if (event.code === "Escape") {
+      modal.close();
+    }
+  });
 }
