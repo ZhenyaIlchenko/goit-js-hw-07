@@ -1,19 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
-// Change code below this line
-console.log(galleryItems);
 
-const modal = basicLightbox.create(`
-    <div class="modal">
-        <p>
-            <img class="modal-image" src=""></img>
-        </p>
-    </div>
-`);
-
-const refs = {
-  gallery: document.querySelector(".gallery"),
-  modalImage: modal.element().querySelector(".modal-image"),
-};
+const galleryEl = document.querySelector(".gallery");
 
 const galleryItemEl = galleryItems
   .map(
@@ -27,28 +14,27 @@ const galleryItemEl = galleryItems
       alt="${item.description}"/></a></div>`
   )
   .join("");
-refs.gallery.insertAdjacentHTML("beforeend", galleryItemEl);
-console.log(refs.gallery);
+galleryEl.insertAdjacentHTML("beforeend", galleryItemEl);
+// console.log(galleryEl);
 
-refs.gallery.addEventListener("click", onImageClick);
-
-// function onImageClick(event) {
-//   event.preventDefault();
-//   if (event.target.nodeName !== "IMG") {
-//     return;
-//   }
-// }
+galleryEl.addEventListener("click", onImageClick);
 
 function onImageClick(event) {
   event.preventDefault();
 
   const isImageSwatchEl = event.target.classList.contains("gallery__image");
-
   if (!isImageSwatchEl) {
     return;
   }
-  const swatchEl = event.target.dataset.source;
-  //   console.log(event.target.dataset.source);
-}
+  // const imgBigEl = event.target.dataset.source;
 
-modal.show();
+  const modal = basicLightbox.create(`
+    <div class="modal">
+        <p>
+          <img class="modal-image" src="${event.target.dataset.source}" width="800" height="600">
+        </p>
+    </div>
+`);
+
+  modal.show();
+}
