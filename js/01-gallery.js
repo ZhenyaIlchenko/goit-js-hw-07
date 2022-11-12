@@ -34,10 +34,12 @@ function onImageClick(event) {
     {
       onShow: (modal) => {
         window.addEventListener("keydown", onEscPress);
-        // modal.element().querySelector("img").onclick = modal.close;
+        modal.element().querySelector("img").onclick = modal.close;
+        console.log("onShow", modal);
       },
       onClose: (modal) => {
         window.removeEventListener("keydown", onEscPress);
+        console.log("onClose", modal);
       },
     }
   );
