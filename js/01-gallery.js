@@ -27,14 +27,25 @@ function onImageClick(event) {
     return;
   }
 
-  const modal = basicLightbox.create(`
+  const modal = basicLightbox.create(
+    `
           <img class="modal-image" src="${event.target.dataset.source}" width="800" height="600">
-`);
-  modal.show();
+`,
+    {
+      onShow: (modal) => {
+        window.addEventListener("keydown", onEscPress);
+        // modal.element().querySelector("img").onclick = modal.close;
+      },
+      onClose: (modal) => {
+        window.removeEventListener("keydown", onEscPress);
+      },
+    }
+  );
 
-  window.addEventListener("keydown", (event) => {
+  function onEscPress(event) {
     if (event.code === "Escape") {
       modal.close();
     }
-  });
+  }
+  modal.show();
 }
